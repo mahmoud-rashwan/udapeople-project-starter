@@ -245,7 +245,7 @@ jobs:
   #          # your code here
   #    # Here's where you will add some code to rollback on failure  
 #
-cl#eanup:
+#cleanup:
   #  docker:
   #    # Docker image here
   #  steps:
