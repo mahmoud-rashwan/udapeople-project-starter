@@ -95,10 +95,10 @@ jobs:
             npm install
             npm test
 
-scan-frontend:
-  docker:
-    - image: cimg/node:13.8.0
-  steps:
+  scan-frontend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
       - checkout
       - restore_cache:
           keys: [frontend-deps]
@@ -109,10 +109,10 @@ scan-frontend:
             npm install
             npm audit --audit-level=critical
 
-scan-backend:
-  docker:
-    - image: cimg/node:13.8.0
-  steps:
+  scan-backend:
+    docker:
+      - image: cimg/node:13.8.0
+    steps:
       - checkout
       - restore_cache:
           keys: [backend-deps]
