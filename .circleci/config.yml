@@ -2,8 +2,8 @@ version: 2.1
 orbs:
   slack: circleci/slack@4.10.1
 commands:
-notify_on_failure:
-  steps:
+  notify_on_failure:
+    steps:
     - slack/notify:
         event: fail
         channel: udacity-project-3
