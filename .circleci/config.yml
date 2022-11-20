@@ -79,7 +79,7 @@ jobs:
           command: |
             cd frontend
             npm install
-            npm run test
+            npm test
 
   test-backend:
     docker:
@@ -93,7 +93,7 @@ jobs:
           command: |
             cd backend
             npm install
-            npm run test
+            npm test
 
 #scan-frontend:
 #  docker:
@@ -282,9 +282,9 @@ workflows:
       - build-frontend
       - build-backend
       - test-frontend:
-      #    requires: [build-frontend]
+          requires: [build-frontend]
       - test-backend:
-      #    requires: [build-backend]
+          requires: [build-backend]
       #- scan-backend:
       #    requires: [build-backend]
       #- scan-frontend:
