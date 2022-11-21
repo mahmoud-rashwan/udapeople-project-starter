@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   slack: circleci/slack@4.9.3
+
 commands:
   notify_on_failure:
     steps:
@@ -8,6 +9,7 @@ commands:
           event: fail
           channel: udacity-project-3
           template: basic_fail_1
+    
     install_awscli:
       description: Install AWS CLI v2
       steps:
