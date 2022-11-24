@@ -31,12 +31,23 @@ commands:
                   sudo add-apt-repository --yes --update ppa:ansible/ansible
                   sudo apt install ansible
 
-          destroy-environment:
+      install_nodejs:
+        description: Install Node.js 13
+        steps:
+          - run:
+              name: Install Node.js 13
+              command: |
+                curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+                sudo apt install -y nodejs
+                sudo npm install --global n
+                sudo n 13.8.0
+
+    destroy-environment:
             description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
             parameters:
               Workflow_ID:
                 type: string
-                default: ${CIRCLE_WORKFLOW_ID:0:7}
+                default: '${CIRCLE_WORKFLOW_ID:0:7}'
                 steps:
                 - run:
                   name: Destroy environments
