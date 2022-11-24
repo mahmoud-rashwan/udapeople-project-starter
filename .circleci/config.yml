@@ -21,11 +21,11 @@ commands:
                 sudo ./aws/install
 
       install_ansible:
-        description: Install Ansible v2
-        steps:
-          - run:
-              name: Install Ansible v2
-              command: |
+          description: Install Ansible v2
+          steps:
+            - run:
+                name: Install Ansible v2
+                command: |
                   sudo apt update
                   sudo apt install software-properties-common
                   sudo add-apt-repository --yes --update ppa:ansible/ansible
