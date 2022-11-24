@@ -23,7 +23,7 @@ commands:
     install_ansible:
       description: Install Ansible v2
       steps:
-        - run:
+      - run:
             name: Install Ansible v2
             command: |
               sudo apt update
