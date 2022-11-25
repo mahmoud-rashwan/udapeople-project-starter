@@ -3,7 +3,14 @@ orbs:
   slack: circleci/slack@4.9.3
 
 commands:
-  install_awscli:
+    notify_on_failure:
+      steps:
+          - slack/notify:
+              event: fail
+              channel: udacity-project-3
+              template: basic_fail_1
+    
+    install_awscli:
       description: Install AWS CLI v2
       steps:
         - run:
@@ -13,55 +20,29 @@ commands:
               unzip awscliv2.zip
               sudo ./aws/install
 
-  install_ansible:
-    description: Install Ansible
-    steps:
-      - run:
-          name: Install Ansible
-          command: |
-            # python3 -m pip install --user ansible
-            sudo apt update
-            sudo apt install software-properties-common -y
-            sudo add-apt-repository --yes --update ppa:ansible/ansible
-            sudo apt install ansible -y
+    install_ansible:
+      description: Install Ansible v2
+      steps:
+        - run:
+            name: Install Ansible v2
+            command: |
+             sudo apt update
+             sudo apt install software-properties-common
+             sudo add-apt-repository --yes --update ppa:ansible/ansible
+             sudo apt install ansible
 
-  install_nodejs:
-    description: Install Node.js 13
-    steps:
-      - run:
-          name: Install Node.js 13
-          command: |
-            # Install Node.js LTS version as our base Node.js version
-            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-            sudo apt install -y nodejs
-
-            # Use n version manager to use Node.js v13.8.0
-            sudo npm install --global n
-            sudo n 13.8.0
-
-#   #notify_on_failure:
-#     steps:
-#       - slack/#notify:
-#           event: fail
-#           channel: cicd-pipeline
-#           template: basic_fail_1
-
-  destroy-environment:
-    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
-    parameters:
-      Workflow_ID:
-        type: string 
-        default: '${CIRCLE_WORKFLOW_ID:0:7}'
-    steps:
-      - run:
-          name: Destroy environments
-          when: on_fail
-          command: |
-           aws s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
-           aws cloudformation delete-stack --stack-name udapeople-frontend-<< parameters.Workflow_ID >>
-           aws cloudformation delete-stack --stack-name udapeople-backend-<< parameters.Workflow_ID >>
-
-
+#  destroy-environment:
+#    description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
+#    parameters:
+#      # Add parameter here
+#    steps:
+#      - run:
+#          name: Destroy environments
+#          when: on_fail
+#          command: |
+#            # Your code here
+#            exit 1
+#
 #  revert-migrations:
 #    description: Revert the last migration if successfully run in the current workflow.
 #    parameters:
@@ -98,7 +79,7 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-deps
-      - ##notify_on_failure
+      - notify_on_failure
 
   build-backend:
     docker:
@@ -116,7 +97,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-deps
-      - #notify_on_failure
+      - notify_on_failure
   test-frontend:
     docker:
       - image: cimg/node:13.8.0
@@ -130,7 +111,7 @@ jobs:
             cd frontend
             npm install
             npm test
-      - #notify_on_failure
+      - notify_on_failure
   test-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -144,7 +125,7 @@ jobs:
             cd backend
             npm install
             npm test
-      - #notify_on_failure
+      - notify_on_failure
   scan-frontend:
     docker:
       - image: cimg/node:13.8.0
@@ -160,7 +141,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-      - #notify_on_failure
+      - notify_on_failure
   scan-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -176,7 +157,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-      - #notify_on_failure
+      - notify_on_failure
   deploy-infrastructure:
       docker:
         - image: cimg/base:stable
@@ -215,27 +196,25 @@ jobs:
             root: ~/
             paths:
               - project/.circleci/ansible/inventory.txt
-
-        - destroy-enviroment
         # Here's where you will add some code to rollback on failure
-    
-  configure-infrastructure:
-    docker:
-        - image: cimg/base:stable
-    steps:
-        - checkout
-        - install_ansible
-        - add_ssh_keys:
-            fingerprints: ["62:70:37:65:7a:34:cf:0b:55:35:3c:88:9f:75:e6:de"]    
-        - attatch_workspace:
-            at: ~/
-        - run:
-            name: Configure server
-            command: |
-              cd .circleci/ansible
-              cat inventory.txt
-              ansible-playbook -i inventory.txt configure-server.yml
-        - destroy-enviroment
+    #
+    #configure-infrastructure:
+    #  docker:
+    #    # Docker image here that supports Ansible
+    #  steps:
+    #    # Checkout code from git
+    #    # Add ssh keys with fingerprint
+    #    # attach workspace
+    #    - run:
+    #        name: Install dependencies
+    #        command: |
+    #          # Your code here
+    #          exit 1
+    #    - run:
+    #        name: Configure server
+    #        command: |
+    #          # Your code here
+    #          exit 1
     #    # Here's where you will add some code to rollback on failure
     #
     #run-migrations:
@@ -349,11 +328,11 @@ jobs:
     #          then
     #            # your code here
     #          fi
-  #notify_on_success:
+  notify_on_success:
       docker:
         - image: cimg/base:stable
       steps:
-        - slack/#notify:
+        - slack/notify:
             event: pass
             channel: udacity-project-3
             template: success_tagged_deployment
@@ -371,7 +350,7 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
-      - #notify_on_success:
+      - notify_on_success:
           requires:
             - test-frontend
             - test-backend
@@ -383,8 +362,8 @@ workflows:
           filters:
             branches:
               only: [master]
-      - configure-infrastructure:
-          requires: [deploy-infrastructure]
+      #- configure-infrastructure:
+      #    requires: [deploy-infrastructure]
       #- run-migrations:
       #    requires: [configure-infrastructure]
       #- deploy-frontend:
