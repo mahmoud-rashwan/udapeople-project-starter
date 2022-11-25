@@ -11,25 +11,19 @@
     ansible_host_key_checking: false
     ansible_stdout_callback: yaml
 
-pre_tasks:
+  pre_tasks:
     - name: "wait 600 seconds for target connection to become reachable/usable."
       wait_for_connection:
         timeout: 600
 
     - name: "install python for Ansible."
       apt:
-      name: python3
-      update_cache: yes
-      become: true
-      raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3)
-       changed_when: false
+       name: python3
+       update_cache: yes
+      # become: true
+      # raw: test -e /usr/bin/python3 || (apt -y update && apt install -y python3)
+      # changed_when: false
 
-    - name: Install Node.js 13
-          command: |
-            curl -fsSL https://deb.nodesource.com/setup_13.8 | sudo -E bash -
-            sudo apt install -y nodejs
-            sudo npm install --global n
-            sudo n 13.8.0
     # - setup:
  
   roles:
