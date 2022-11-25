@@ -39,9 +39,9 @@ commands:
             sudo npm install --global n
             sudo n 13.8.0
 
-#   notify_on_failure:
+#   #notify_on_failure:
 #     steps:
-#       - slack/notify:
+#       - slack/#notify:
 #           event: fail
 #           channel: cicd-pipeline
 #           template: basic_fail_1
@@ -98,7 +98,7 @@ jobs:
       - save_cache:
           paths: [frontend/node_modules]
           key: frontend-deps
-      - notify_on_failure
+      - ##notify_on_failure
 
   build-backend:
     docker:
@@ -116,7 +116,7 @@ jobs:
       - save_cache:
           paths: [backend/node_modules]
           key: backend-deps
-      - notify_on_failure
+      - #notify_on_failure
   test-frontend:
     docker:
       - image: cimg/node:13.8.0
@@ -130,7 +130,7 @@ jobs:
             cd frontend
             npm install
             npm test
-      - notify_on_failure
+      - #notify_on_failure
   test-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -144,7 +144,7 @@ jobs:
             cd backend
             npm install
             npm test
-      - notify_on_failure
+      - #notify_on_failure
   scan-frontend:
     docker:
       - image: cimg/node:13.8.0
@@ -160,7 +160,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-      - notify_on_failure
+      - #notify_on_failure
   scan-backend:
     docker:
       - image: cimg/node:13.8.0
@@ -176,7 +176,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-      - notify_on_failure
+      - #notify_on_failure
   deploy-infrastructure:
       docker:
         - image: cimg/base:stable
@@ -349,11 +349,11 @@ jobs:
     #          then
     #            # your code here
     #          fi
-  notify_on_success:
+  #notify_on_success:
       docker:
         - image: cimg/base:stable
       steps:
-        - slack/notify:
+        - slack/#notify:
             event: pass
             channel: udacity-project-3
             template: success_tagged_deployment
@@ -371,7 +371,7 @@ workflows:
           requires: [build-backend]
       - scan-frontend:
           requires: [build-frontend]
-      - notify_on_success:
+      - #notify_on_success:
           requires:
             - test-frontend
             - test-backend
