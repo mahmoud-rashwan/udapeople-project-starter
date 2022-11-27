@@ -284,14 +284,14 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:14.18.2-buster-browsers-legacy
     steps:
       - checkout
       - install_awscli
       - install_ansible
-      - install_nodejs
+      #- install_nodejs
       - add_ssh_keys:
-          fingerprints: ["6a:93:c0:b6:aa:4b:e7:e4:82:c4:47:16:23:00:48:5a"]
+          fingerprints: ["62:70:37:65:7a:34:cf:0b:55:35:3c:88:9f:75:e6:de"]
       - attach_workspace:
           at: ~/
       - restore_cache:
@@ -432,8 +432,8 @@ workflows:
           requires: [configure-infrastructure]
        - deploy-frontend:
           requires: [run-migrations]
-      # - deploy-backend:
-      #    requires: [run-migrations]  
+       - deploy-backend:
+          requires: [run-migrations]  
       # - smoke-test:
       #    requires: [deploy-backend, deploy-frontend]   
       # - cloudfront-update:
