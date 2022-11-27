@@ -12,10 +12,10 @@ commands:
             sudo ./aws/install
 
   install_ansible:
-    description: Install Ansible v2
+    description: Install Ansible
     steps:
       - run:
-          name: Install Ansible v2
+          name: Install Ansible
           command: |
             sudo apt update
             sudo apt install software-properties-common -y
@@ -30,8 +30,7 @@ commands:
           command: |
             curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
             sudo apt install -y nodejs
-            # sudo npm install --global n
-            # sudo n 13.8.0
+
 
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -431,8 +430,8 @@ workflows:
           requires: [deploy-infrastructure]
        - run-migrations:
           requires: [configure-infrastructure]
-      # - deploy-frontend:
-      #    requires: [run-migrations]
+       - deploy-frontend:
+          requires: [run-migrations]
       # - deploy-backend:
       #    requires: [run-migrations]  
       # - smoke-test:
