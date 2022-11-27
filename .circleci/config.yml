@@ -341,9 +341,9 @@ jobs:
             export API_URL=http://${BACKEND_PUBLIC_IP}:3030
             if curl -s $API_URL/api/status | grep "ok"
             then
-              exit 0
-            else
               exit 1
+            else
+              exit 2
             fi
       - run:
           name: Frontend smoke test.
@@ -434,8 +434,8 @@ workflows:
           requires: [run-migrations]
        - deploy-backend:
           requires: [run-migrations]
-      # - smoke-test:
-      #    requires: [deploy-backend, deploy-frontend]   
+       - smoke-test:
+          requires: [deploy-backend, deploy-frontend]   
       # - cloudfront-update:
       #    requires: [smoke-test]
       # - cleanup:
