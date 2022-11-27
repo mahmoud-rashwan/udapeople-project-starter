@@ -252,7 +252,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/node:14.18.2-buster-browsers-legacy
     steps:
       - checkout
       - install_awscli
