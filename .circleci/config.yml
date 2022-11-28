@@ -23,10 +23,10 @@ commands:
             sudo apt install ansible -y
 
   install_nodejs:
-    description: Install Node.js 13
+    description: Install Node.js lts
     steps:
       - run:
-          name: Install Node.js 13
+          name: Install Node.js lts
           command: |
             curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
             sudo apt install -y nodejs
@@ -227,7 +227,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:14.18.2-buster-browsers-legacy
+      - image: circleci/node:lts-stretch
     steps:
       - checkout
       - install_awscli
@@ -252,7 +252,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: circleci/node:14.18.2-buster-browsers-legacy
+      - image: circleci/node:lts-stretch
     steps:
       - checkout
       - install_awscli
@@ -284,7 +284,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: circleci/node:14-browsers
+      - image: circleci/node:lts-stretch
     steps:
       - checkout
       - install_awscli
