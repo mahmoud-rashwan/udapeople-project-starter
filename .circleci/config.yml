@@ -73,7 +73,7 @@ jobs:
  
   build-frontend:
     docker:
-      - image: cimg/node:14
+      - image: circleci/node:14
     steps:
        - checkout
        - restore_cache:
