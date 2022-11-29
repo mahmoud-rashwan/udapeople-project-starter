@@ -3,12 +3,7 @@
     path: ~/backend-app
     state: directory
 
-# - name: "move files to server"
-#   become: yes
-#   synchronize:
-#     src: artifact.tar.gz
-#     dest: ~/artifact.tar.gz
-#     recursive: true
+
 
 - name: "Unarchive backend files"
   unarchive:
