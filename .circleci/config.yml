@@ -227,7 +227,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/node:13.8.0
+      - image: cimg/node:14
     steps:
       - checkout
       - install_awscli
@@ -355,8 +355,8 @@ jobs:
             else
               exit 1
             fi
-      #- destroy-environment
-      #- revert-migrations
+      - destroy-environment
+      - revert-migrations
 
   cloudfront-update:
     docker:
