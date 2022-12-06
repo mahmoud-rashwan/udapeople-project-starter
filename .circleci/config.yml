@@ -225,7 +225,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:13.11.0
+      - image: circleci/node:13.12
     steps:
       - checkout
       - install_awscli
