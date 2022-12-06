@@ -251,7 +251,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: circleci/node:13.8
+      - image: cimg/node:14.20
     steps:
       - checkout
       - install_awscli
@@ -283,12 +283,12 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:14.20
     steps:
       - checkout
       - install_awscli
       - install_ansible
-      - install_nodejs
+      #- install_nodejs
       - add_ssh_keys:
           fingerprints: ["6a:93:c0:b6:aa:4b:e7:e4:82:c4:47:16:23:00:48:5a"]
       - attach_workspace:
