@@ -251,7 +251,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -283,7 +283,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
