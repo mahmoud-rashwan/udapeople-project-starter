@@ -72,7 +72,7 @@ jobs:
  
   build-frontend:
     docker:
-      - image: cimg/node:14.20   #cimg/node:13.8.0
+      - image: circleci/node:13.8.0   #cimg/node:13.8.0
     steps:
        - checkout
        - restore_cache:
@@ -89,7 +89,7 @@ jobs:
 
   build-backend:
     docker:
-      - image: cimg/node:14.20            #circleci/node:13.8.0
+      - image: circleci/node:13.8.0            #circleci/node:13.8.0
     steps:
        - checkout
        - restore_cache:
@@ -106,7 +106,7 @@ jobs:
 
   test-frontend:
     docker:
-      - image: cimg/node:14.20
+      - image: circleci/node:13.8.0
     steps:
      - checkout
      - restore_cache:
@@ -120,7 +120,7 @@ jobs:
      
   test-backend:
     docker:
-      - image: cimg/node:14.20
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -134,7 +134,7 @@ jobs:
 
   scan-frontend:
      docker:
-      - image: cimg/node:14.20
+      - image: circleci/node:13.8.0
      steps:
       - checkout
       - restore_cache:
@@ -150,7 +150,7 @@ jobs:
 
   scan-backend:
      docker:
-      - image: cimg/node:14.20
+      - image: circleci/node:13.8.0
      steps:
       - checkout
       - restore_cache:
@@ -167,7 +167,7 @@ jobs:
 
   deploy-infrastructure:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/builder-base
     steps:
       - checkout
       - install_awscli
@@ -206,7 +206,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/builder-base
     steps:
       - checkout
       - install_awscli
@@ -225,7 +225,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/node:14.20
+      - image: circleci/node:14.18
     steps:
       - checkout
       - install_awscli
@@ -251,7 +251,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/node:14.20
+      - image: circleci/node:14.18
     steps:
       - checkout
       - install_awscli
@@ -283,7 +283,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/node:14.20
+      - image: circleci/node:14.18
     steps:
       - checkout
       - install_awscli
@@ -325,7 +325,7 @@ jobs:
 
   smoke-test:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/builder-base
     steps:
       - checkout
       - install_awscli
