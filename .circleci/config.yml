@@ -26,7 +26,7 @@ commands:
     description: Install Node.js 13
     steps:
       - run:
-          name: Install Node.js 13
+          name: Install Node.js 14
           command: |
               curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash - 
               sudo apt install -y nodejs
@@ -283,7 +283,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/node:13.8.0
+      - image: cimg/node:14.20
     steps:
       - checkout
       - install_awscli
