@@ -283,7 +283,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -314,8 +314,8 @@ jobs:
       - run:
           name: Deploy backend
           command: |
-            export TYPEORM_MIGRATIONS_DIR=./src/migrations
-            export TYPEORM_ENTITIES=./src/modules/domain/**/*.entity.ts
+            export TYPEORM_MIGRATIONS_DIR=./migrations
+            export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
             export TYPEORM_MIGRATIONS=./migrations/*.ts
             cd .circleci/ansible
             cat inventory.txt
