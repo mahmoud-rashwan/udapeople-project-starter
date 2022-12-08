@@ -283,7 +283,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0-buster-browsers
     steps:
       - checkout
       - install_awscli
