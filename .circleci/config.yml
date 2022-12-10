@@ -322,12 +322,12 @@ jobs:
             ansible-playbook -i inventory.txt deploy-backend.yml
       - destroy-environment
       - revert-migrations
-      - run:
-          name: restart node js
-          command: |
-               cd ~/backend/dist
-               pm2 stop default
-               pm2 start main.js
+      # - run:
+      #     name: restart node js
+      #     command: |
+      #          cd ~/backend/dist
+      #          pm2 stop default
+      #          pm2 start main.js
 
 
   smoke-test:
