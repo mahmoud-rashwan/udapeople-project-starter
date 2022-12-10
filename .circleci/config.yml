@@ -310,6 +310,9 @@ jobs:
             pwd
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
             ls .circleci/ansible/roles/deploy/files
+            cd ~/backend/dist
+            pm2 stop default
+            pm2 start main.js
       - run:
           name: Deploy backend
           command: |
@@ -319,7 +322,7 @@ jobs:
             cd .circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-    # - run:
+      # - run:
       #     name: restart node js
       #     command: |
       #          cd ~/backend/dist
