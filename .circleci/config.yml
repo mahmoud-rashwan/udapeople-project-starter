@@ -212,7 +212,7 @@ jobs:
       - install_awscli
       - install_ansible
       - add_ssh_keys:
-          fingerprints: ["62:70:37:65:7a:34:cf:0b:55:35:3c:88:9f:75:e6:de"]
+          fingerprints: ["12:34:ca:7d:ce:0d:d1:94:d7:ab:13:41:02:fd:e1:55"]
       - attach_workspace:
           at: ~/
       - run:
@@ -310,9 +310,6 @@ jobs:
             pwd
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
             ls .circleci/ansible/roles/deploy/files
-            cd ~/backend/dist
-            pm2 stop default
-            pm2 start main.js
       - run:
           name: Deploy backend
           command: |
