@@ -23,13 +23,15 @@ commands:
             sudo apt install ansible -y
 
   install_nodejs:
-    description: Install Node.js 14
+    description: Install Node.js 13
     steps:
       - run:
-          name: Install Node.js 14
+          name: Install Node.js 13
           command: |
-              curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash - 
-              sudo apt install -y nodejs
+            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+            sudo apt install -y nodejs
+            # sudo npm install --global n
+            # sudo n 13.8.0
 
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -72,7 +74,7 @@ jobs:
  
   build-frontend:
     docker:
-      - image: cimg/node:13.8.0          #cimg/node:14.20   
+      - image: cimg/node:13.8.0
     steps:
        - checkout
        - restore_cache:
@@ -89,7 +91,7 @@ jobs:
 
   build-backend:
     docker:
-      - image: cimg/node:13.8.0            #circleci/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
        - checkout
        - restore_cache:
@@ -106,7 +108,7 @@ jobs:
 
   test-frontend:
     docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
      - checkout
      - restore_cache:
@@ -120,7 +122,7 @@ jobs:
      
   test-backend:
     docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -134,7 +136,7 @@ jobs:
 
   scan-frontend:
      docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0
      steps:
       - checkout
       - restore_cache:
@@ -150,7 +152,7 @@ jobs:
 
   scan-backend:
      docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0
      steps:
       - checkout
       - restore_cache:
@@ -225,7 +227,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/node:13.8.0
+      - image: circleci/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -306,6 +308,7 @@ jobs:
             cd backend
             npm run build
             tar -czf artifact.tar.gz dist/* package*
+
             cd ..
             pwd
             cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
@@ -319,16 +322,8 @@ jobs:
             cd .circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
-      # - run:
-      #     name: restart node js
-      #     command: |
-      #          cd ~/backend/dist
-      #          pm2 stop default
-      #          pm2 start main.js
       - destroy-environment
       - revert-migrations
-     
-
 
   smoke-test:
     docker:
@@ -361,8 +356,8 @@ jobs:
             else
               exit 1
             fi
-      # - destroy-environment
-      # - revert-migrations
+      - destroy-environment
+      - revert-migrations
 
   cloudfront-update:
     docker:
