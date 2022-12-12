@@ -28,7 +28,7 @@ commands:
       - run:
           name: Install Node.js 14
           command: |
-              curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash - 
+              curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash - 
               sudo apt install -y nodejs
 
   destroy-environment:
@@ -72,7 +72,7 @@ jobs:
  
   build-frontend:
     docker:
-      - image: cimg/node:14.20   #cimg/node:13.8.0
+      - image: cimg/node:13.8.0          #cimg/node:14.20   
     steps:
        - checkout
        - restore_cache:
@@ -89,7 +89,7 @@ jobs:
 
   build-backend:
     docker:
-      - image: cimg/node:14.20            #circleci/node:13.8.0
+      - image: cimg/node:13.8.0            #circleci/node:13.8.0
     steps:
        - checkout
        - restore_cache:
@@ -106,7 +106,7 @@ jobs:
 
   test-frontend:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
     steps:
      - checkout
      - restore_cache:
@@ -120,7 +120,7 @@ jobs:
      
   test-backend:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - restore_cache:
@@ -134,7 +134,7 @@ jobs:
 
   scan-frontend:
      docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
      steps:
       - checkout
       - restore_cache:
@@ -150,7 +150,7 @@ jobs:
 
   scan-backend:
      docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
      steps:
       - checkout
       - restore_cache:
@@ -225,7 +225,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/node:14.20
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -251,7 +251,7 @@ jobs:
 
   deploy-frontend:
     docker:
-      - image: cimg/base:current
+      - image: cimg/base:stable
     steps:
       - checkout
       - install_awscli
@@ -283,7 +283,7 @@ jobs:
 
   deploy-backend:
     docker:
-      - image: cimg/base:current
+      - image: cimg/base:stable
     steps:
       - checkout
       - install_awscli
