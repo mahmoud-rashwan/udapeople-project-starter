@@ -164,6 +164,9 @@ jobs:
           command: |
             cd backend
             npm install
+            npm update path-parse --depth 3
+            npm update path-parse --depth 3
+            npm update path-parse --depth 3
             npm audit fix --force
             npm audit fix --force
             npm audit fix --force
@@ -177,7 +180,6 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-            npm audit fix
 
   deploy-infrastructure:
     docker:
