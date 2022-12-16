@@ -165,6 +165,10 @@ jobs:
             cd backend
             npm install
             npm audit fix --force
+            npm audit fix --force
+            npm audit fix --force
+            npm audit fix --force
+            npm audit fix --force
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
@@ -173,11 +177,7 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
-            npm audit fix --force
-            npm audit fix --force
-            npm audit fix --force
-            npm audit fix --force
-      # - notify_on_failure
+            npm audit fix
 
   deploy-infrastructure:
     docker:
