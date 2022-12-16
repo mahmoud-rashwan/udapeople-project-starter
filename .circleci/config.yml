@@ -163,7 +163,7 @@ jobs:
           name: back-end scan
           command: |
             cd backend
-            npm install npm@6.12.1
+            npm install -g npm@6.12.1
             npm audit fix --force
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
