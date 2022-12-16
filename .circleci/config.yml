@@ -164,6 +164,7 @@ jobs:
           command: |
             cd backend
             npm install --no-audit
+            npm set audit false
             # npm update path-parse --depth 3
             # npm update path-parse --depth 3
             # npm update path-parse --depth 3
