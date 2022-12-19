@@ -83,8 +83,6 @@ jobs:
            name: Build front-end
            command: |
              cd frontend
-             npm install -g npm@latest
-             rm -rf node_modules
              npm install            
              npm run build
        - save_cache:
