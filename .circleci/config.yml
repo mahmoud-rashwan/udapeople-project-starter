@@ -87,7 +87,7 @@ jobs:
              npm run build
        - save_cache:
            paths: [frontend/node_modules]
-           key: fronyend-deps
+           key: frontend-deps
 
   build-backend:
     docker:
