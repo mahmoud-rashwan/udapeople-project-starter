@@ -1,5 +1,9 @@
 http://d342ga6lzi0tk4.cloudfront.net
 
+<<<<<<< HEAD
 https://udapeople-bb81b6d.s3.amazonaws.com/index.html
 
 https://github.com/mahmoud-rashwan/udapeople-project-starter
+=======
+https://udapeople-ce52d14.s3.amazonaws.com/index.html
+>>>>>>> c65b372dd716fe18301cc8bf72a0c390783c3db2
