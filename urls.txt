@@ -1,0 +1,5 @@
+https://github.com/mahmoud-rashwan/udapeople-project-starter
+
+http://d342ga6lzi0tk4.cloudfront.net
+
+https://udapeople-9aa0f5c.s3.amazonaws.com/index.html#/employees
