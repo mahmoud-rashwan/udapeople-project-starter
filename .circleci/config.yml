@@ -247,8 +247,8 @@ jobs:
                echo "test"
              fi 
              
-      - destroy-environment
-      - revert-migrations
+      # - destroy-environment
+      # - revert-migrations
 
   deploy-frontend:
     docker:
