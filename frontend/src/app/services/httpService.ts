@@ -34,6 +34,7 @@ export class HttpService {
       },
       body: JSON.stringify(data),
       method: 'POST',
+      mode: 'cors'
     });
     switch (response.status) {
       case 500:
