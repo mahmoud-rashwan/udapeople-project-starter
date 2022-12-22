@@ -101,8 +101,8 @@ jobs:
            command: |
              cd backend
              npm install
-             npm update
              npm cache clean –force
+             npm update
              npm run build
        - save_cache:
             paths: [backend/node_modules]
