@@ -102,6 +102,8 @@ jobs:
              cd backend
              npm install
              npm cache clean --force
+             sudo chown -R `whoami` ~/.npm
+             sudo chown -R `whoami` /usr/local/lib/node_modules
              npm install -g typescript --force
              npm update
              npm run build
