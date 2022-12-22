@@ -100,7 +100,6 @@ jobs:
            command: |
              cd backend
              npm install
-             npm update
              npm cache clean --force
              npm run build
        - save_cache:
