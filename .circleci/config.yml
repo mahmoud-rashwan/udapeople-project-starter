@@ -23,15 +23,14 @@ commands:
             sudo apt install ansible -y
 
   install_nodejs:
-    description: Install Node.js 13
+    description: Install Node.js 14
     steps:
       - run:
           name: Install Node.js 13
           command: |
-            curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+            curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
             sudo apt install -y nodejs
-            # sudo npm install --global n
-            # sudo n 13.8.0
+
 
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -74,7 +73,7 @@ jobs:
  
   build-frontend:
     docker:
-      - image: cimg/node:13.8.0
+      - image: cimg/node:14.16                       ##cimg/node:13.8.0
     steps:
        - checkout
        - restore_cache:
@@ -91,7 +90,7 @@ jobs:
 
   build-backend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: cimg/node:14.16
     steps:
        - checkout
        - restore_cache:
@@ -109,7 +108,7 @@ jobs:
 
   test-frontend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14.16
     steps:
      - checkout
      - restore_cache:
@@ -123,7 +122,7 @@ jobs:
      
   test-backend:
     docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14.16
     steps:
       - checkout
       - restore_cache:
@@ -137,7 +136,7 @@ jobs:
 
   scan-frontend:
      docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14.16
      steps:
       - checkout
       - restore_cache:
@@ -155,7 +154,7 @@ jobs:
 
   scan-backend:
      docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14.16
      steps:
       - checkout
       - restore_cache:
@@ -228,7 +227,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: circleci/node:13.8.0
+      - image: circleci/node:14.16
     steps:
       - checkout
       - install_awscli
