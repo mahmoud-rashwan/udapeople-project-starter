@@ -102,7 +102,7 @@ jobs:
              cd backend
              npm install
              npm cache clean --force
-             npm install -g typescript
+             npm install -g typescript --force
              npm update
              npm run build
        - save_cache:
