@@ -102,7 +102,7 @@ jobs:
              cd backend
              npm install
              npm update
-             npm install typescript
+             sudo npm install typescript -g
              npm run build
        - save_cache:
             paths: [backend/node_modules]
