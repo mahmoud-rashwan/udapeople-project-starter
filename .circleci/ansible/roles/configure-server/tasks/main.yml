@@ -1,9 +1,5 @@
-<<<<<<< HEAD
 ---
 - name: "Add Node.js from Nodesource"
-=======
-- name: "Install Node.js 13"
->>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
   become: true
   shell: |
     curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
