@@ -39,9 +39,15 @@ commands:
       - run:
           name: Install Node.js 13
           command: |
+<<<<<<< HEAD
             curl -fsSL https://deb.nodesource.com/setup_13.x | sudo -E bash - 
             sudo apt install -y nodejs
 
+=======
+            curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+            sudo apt install -y nodejs
+            
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
 
   destroy-environment:
     description: Destroy back-end and front-end cloudformation stacks given a workflow ID.
@@ -80,6 +86,7 @@ commands:
 jobs:
   build-frontend:
     docker:
+<<<<<<< HEAD
       - image: cimg/node:13.8.0
     steps:
       - checkout
@@ -99,6 +106,26 @@ jobs:
   build-backend:
     docker:
       - image: cimg/node:13.8.0
+=======
+      - image: cimg/node:14.0.0
+    steps:
+       - checkout
+       - restore_cache:
+            keys: [frontend-deps]
+       - run:
+           name: Build front-end
+           command: |
+             cd frontend
+             npm install            
+             npm run build
+       - save_cache:
+           paths: [frontend/node_modules]
+           key: frontend-deps
+
+  build-backend:
+    docker:
+      - image: circleci/node:14.0.0
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
     steps:
       - checkout
       - restore_cache:
@@ -116,7 +143,11 @@ jobs:
 
   test-frontend:
     docker:
+<<<<<<< HEAD
       - image: cimg/node:13.8.0
+=======
+      - image: circleci/node:14.0.0
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
     steps:
       - checkout
       - restore_cache:
@@ -131,7 +162,11 @@ jobs:
                 
   test-backend:
     docker:
+<<<<<<< HEAD
       - image: cimg/node:13.8.0
+=======
+      - image: circleci/node:14.0.0
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
     steps:
       - checkout
       - restore_cache:
@@ -145,9 +180,15 @@ jobs:
       - notify_on_failure
             
   scan-frontend:
+<<<<<<< HEAD
     docker:
       - image: cimg/node:13.8.0
     steps:
+=======
+     docker:
+      - image: circleci/node:14.0.0
+     steps:
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
       - checkout
       - restore_cache:
           keys: [frontend-deps]
@@ -158,13 +199,23 @@ jobs:
             npm install
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
+<<<<<<< HEAD
+=======
+            npm audit fix --force --audit-level=critical
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
             npm audit --audit-level=critical
       - notify_on_failure
 
   scan-backend:
+<<<<<<< HEAD
     docker:
       - image: cimg/node:13.8.0
     steps:
+=======
+     docker:
+      - image: circleci/node:14.0.0
+     steps:
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
       - checkout
       - restore_cache:
           keys: [backend-deps]
@@ -176,8 +227,11 @@ jobs:
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
+<<<<<<< HEAD
       - notify_on_failure
 
+=======
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
   deploy-infrastructure:
     docker:
       - image: cimg/base:stable
@@ -241,7 +295,11 @@ jobs:
 
   run-migrations:
     docker:
+<<<<<<< HEAD
       - image: cimg/node:13.8.0
+=======
+      - image: circleci/node:14.15.0
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
     steps:
       - checkout
       - install_awscli
@@ -250,14 +308,27 @@ jobs:
           command: |
             cd backend
             npm install
+            npm install typescript@latest
+            npx --package typescript tsc --init
+            npx --package typescript tsc --version
             npm run migrations > migrations_dump.txt
       - run:
           name: Send migration status to kvdb.io
           command: |
+<<<<<<< HEAD
             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
             then
               curl --insecure https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d  '1'
             fi
+=======
+             if grep -q "has been executed successfully." ~/project/backend/migrations_dump.txt
+             then
+               curl https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7}  -d '1'
+               curl --insecure https://kvdb.io/${KVDB_BUCKET}/migration_${CIRCLE_WORKFLOW_ID:0:7}
+               echo "test"
+             fi 
+             
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
       - destroy-environment
       - revert-migrations
 
@@ -289,6 +360,7 @@ jobs:
       - run:
           name: Deploy frontend objects
           command: |
+            export NODE_ENV=production
             cd frontend
             npm run build
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
@@ -325,6 +397,7 @@ jobs:
       - run:
           name: Deploy backend
           command: |
+            export NODE_ENV=production
             export TYPEORM_MIGRATIONS_DIR=./migrations
             export TYPEORM_ENTITIES=./modules/domain/**/*.entity{.ts,.js}
             export TYPEORM_MIGRATIONS=./migrations/*.ts
@@ -332,10 +405,15 @@ jobs:
             cd .circleci/ansible
             cat inventory.txt
             ansible-playbook -i inventory.txt deploy-backend.yml
+<<<<<<< HEAD
 
       - destroy-environment
       - revert-migrations  
  
+=======
+      - destroy-environment
+      - revert-migrations
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
 
   smoke-test:
     docker:
@@ -368,9 +446,14 @@ jobs:
             else
               exit 1
             fi
+<<<<<<< HEAD
 
       - destroy-environment
       - revert-migrations   
+=======
+      - destroy-environment
+      - revert-migrations
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
 
   cloudfront-update:
     docker:
@@ -432,6 +515,7 @@ workflows:
           requires: [build-backend]
       - scan-backend:
           requires: [build-backend]
+<<<<<<< HEAD
       - scan-frontend:
           requires: [build-frontend]
       - notify_on_success:
@@ -442,6 +526,11 @@ workflows:
             - scan-backend
 
       - deploy-infrastructure:
+=======
+       - scan-frontend:
+          requires: [build-frontend]   
+       - deploy-infrastructure:
+>>>>>>> ee906c704e6c42db96590bc888ddb580f0156cb7
           requires: [test-frontend, test-backend, scan-frontend, scan-backend]
           filters:
             branches:
