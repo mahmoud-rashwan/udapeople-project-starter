@@ -1,3 +1,4 @@
+#! /bin/bash
 export NODE_ENV=production
 export VERSION=1
 export TYPEORM_CONNECTION=postgres
