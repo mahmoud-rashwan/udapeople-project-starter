@@ -231,8 +231,10 @@ jobs:
             cd backend
             npm install
             npm update
-            npm cache clean --force 
+            npm cache clean --force
+            npm install npx
             npx install typescript -g
+            npx tsc
             npm start
             npm run migrations > migrations_dump.txt
       - run:
