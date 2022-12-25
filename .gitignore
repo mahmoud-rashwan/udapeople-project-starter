@@ -65,6 +65,6 @@ $RECYCLE.BIN/
 Thumbs.db
 UserInterfaceState.xcuserstate
 node_modules
-*.pem
+prometheus-server-key.pem
 .env
 dist
