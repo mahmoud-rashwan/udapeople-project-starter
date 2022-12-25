@@ -232,7 +232,7 @@ jobs:
             npm install
             npm update
             npm cache clean --force 
-            npm install typescript -g
+            npx install typescript -g
             npm start
             npm run migrations > migrations_dump.txt
       - run:
