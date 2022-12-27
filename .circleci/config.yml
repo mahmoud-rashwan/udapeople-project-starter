@@ -202,7 +202,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: cimg/python:3.10
+      - image: cimg/base:stable
     steps:
       - checkout
       - install-ansible
