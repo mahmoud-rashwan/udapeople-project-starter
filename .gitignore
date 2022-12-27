@@ -68,3 +68,4 @@ node_modules
 prometheus-server-key.pem
 .env
 dist
+udacity.pem
