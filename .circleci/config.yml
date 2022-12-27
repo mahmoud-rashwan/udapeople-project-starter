@@ -230,7 +230,7 @@ jobs:
           command: |
             cd backend
             npm install
-            npm update
+            # npm update
             npm cache clean --force
             # npm install npx
             # npx install typescript -g
@@ -274,7 +274,7 @@ jobs:
       - run:
           name: Deploy frontend objects
           command: |
-            # export NODE_ENV=production
+            export NODE_ENV=production
             cd frontend
             npm run build
             aws s3 cp dist s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
