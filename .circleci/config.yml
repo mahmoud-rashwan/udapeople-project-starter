@@ -140,6 +140,9 @@ jobs:
           command: |
             cd frontend
             npm install
+            npm update
+            npm update minimist --depth 4
+            npm update loader-utils --depth 2
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
