@@ -144,9 +144,9 @@ jobs:
       - run:
           name: front-end scan
           command: |
-            # Your code here
             cd frontend
             npm install
+            npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit --audit-level=critical
 
