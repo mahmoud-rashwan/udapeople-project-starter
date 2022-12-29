@@ -147,6 +147,7 @@ jobs:
             cd frontend
             npm install
             npm update
+            npm install --save-dev postcss-loader@7.0.2
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
