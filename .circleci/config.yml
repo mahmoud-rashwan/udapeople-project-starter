@@ -142,6 +142,7 @@ jobs:
             npm install
             npm audit fix --force
             npm update
+            npm install --save-dev html-webpack-plugin@5.5.0
             # npm i react-scripts@latest
             npm audit fix --force --audit-level=critical
             npm audit fix --force --audit-level=critical
