@@ -240,13 +240,13 @@ jobs:
             echo NODE_ENV=production  >> .env
             echo TYPEORM_CONNECTION=postgres >> .env
             echo TYPEORM_MIGRATIONS_DIR=./src/migrations >> .env
-            echo TYPEORM_ENTITIES=./src//modules/domain/**/*.entity{.ts,.js} >> .env
+            echo TYPEORM_ENTITIES=./src/modules/domain/**/*.entity{.ts,.js} >> .env
             echo TYPEORM_MIGRATIONS=./migrations/*.ts >> .env
-            echo TYPEORM_HOST=$TYPEORM_HOST >> .env
-            echo TYPEORM_PORT=$TYPEORM_PORT >> .env
-            echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> .env
-            echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> .env
-            echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> .env
+            echo TYPEORM_HOST=udacity-db.c7eq7bxkt03m.us-east-1.rds.amazonaws.com >> .env
+            echo TYPEORM_PORT=5432 >> .env
+            echo TYPEORM_USERNAME=postgres >> .env
+            echo TYPEORM_PASSWORD=lssiiXXalu6AT5zQozLX >> .env
+            echo TYPEORM_DATABASE=glee2 >> .env
             npm install
             npm run migrations > migrations_dump.txt
       - run:
