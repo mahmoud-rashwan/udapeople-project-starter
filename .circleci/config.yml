@@ -229,7 +229,7 @@ jobs:
 
   run-migrations:
     docker:
-      - image: cimg/node:14.17.0
+      - image: cimg/node:13.8.0
     steps:
       - checkout
       - install_awscli
@@ -247,7 +247,7 @@ jobs:
             echo TYPEORM_USERNAME=$TYPEORM_USERNAME >> .env
             echo TYPEORM_PASSWORD=$TYPEORM_PASSWORD >> .env
             echo TYPEORM_DATABASE=$TYPEORM_DATABASE >> .env
-            npm install npm@9.2.0
+            npm install
             npm install cors
             npm run migrations > migrations_dump.txt
       - run:
@@ -263,8 +263,8 @@ jobs:
                cat ~/project/backend/migrations_dump.txt
              fi 
 
-  #     - destroy-environment
-  #     - revert-migrations
+      - destroy-environment
+      - revert-migrations
   
   # run-migrations:
   #   docker:
