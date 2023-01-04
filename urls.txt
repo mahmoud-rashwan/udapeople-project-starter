@@ -1,7 +1,7 @@
-http://d29p0nifb9fyv9.cloudfront.net/ - Cloudfront URL 
+http://d1jc9xspe308it.cloudfront.net/#/employees - Cloudfront URL 
 
 
-http://udapeople-6d210f4.s3.amazonaws.com/index.html#/employees -  S3 Bucket URL
+http://udapeople-d3dddb2.s3.amazonaws.com/index.html#/employees -  S3 Bucket URL
 
 
 https://github.com/mahmoud-rashwan/udapeople-project-starter - Github Repo
@@ -11,7 +11,7 @@ https://github.com/mahmoud-rashwan/udapeople-project-starter - Github Repo
 http://3.84.205.255:9090/graph -  prometheus endpoint
 
 
-http://54.174.1.195:3030/api/status -  Backend Ip
+http://54.152.109.152:3030/api/status -  Backend Ip
 
 
 
