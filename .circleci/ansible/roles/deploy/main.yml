@@ -18,6 +18,8 @@
 - name: "Executing Node app with PM2"
   shell: |
     cd ~/backend-app/dist
+    pm2 delete all
+    pm2 start ecosystem.config.js
     pm2 stop default
     pm2 start main.js
   register: execute_node
